@@ -55,7 +55,7 @@ Things you may want to cover:
 | shipping_charges_id    | integer    | null: false                    |
 | shipment_source_id     | integer    | null: false                    |
 | shipping_days_id       | integer    | null: false                    |
-| price                  | string     | null: false                    |
+| price                  | integer    | null: false                    |
 | user                   | references | null: false, foreign_key: true |
 
 ### Association
@@ -67,19 +67,19 @@ Things you may want to cover:
 
 | Column                 | Type       | Options                        |
 | ---------------------- | ---------- | ------------------------------ |
-| postal_code            | integer    | null: false                    |
-| prefercture            | string     | null: false                    |
+| postal_code            | string     | null: false                    |
+| prefecture             | string     | null: false                    |
 | city                   | string     | null: false                    |
 | house_number           | string     | null: false                    |
 | building_name          | string     |                                |
-| phone_number           | integer    | null: false                    |
-| purchaces              | references | null: false, foreign_key: true |
+| phone_number           | string     | null: false                    |
+| purchases              | references | null: false, foreign_key: true |
 
 ### Association
 - belongs_to: purchase
 
 
-## purchaces テーブル
+## purchases テーブル
 
 | Column                 | Type       | Options                        |
 | ---------------------- | ---------- | ------------------------------ |
@@ -89,4 +89,4 @@ Things you may want to cover:
 ### Association
 - belongs_to: item
 - belongs_to: user
-- has_one: purchases
+- has_one: ship_address
