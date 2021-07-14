@@ -11,10 +11,9 @@ class User < ApplicationRecord
     validates :last_name_kana, format: { with: /\A[ァ-ヶー－]+\z/, message: '全角カタカナ以外では登録できない' }
     validates :first_name_kana, format: { with: /\A[ァ-ヶー－]+\z/, message: '全角カタカナ以外では登録できない' }
     validates :birthday
-    
   end
-
+  validates :password, format: {with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze, message: '半角英数字でなければ登録できない' }
   # has_many :items
   # has_many :purchases
 end
-  validates :password, format: {with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze, message: '半角英数字でなければ登録できない' }
+  
