@@ -10,11 +10,6 @@ RSpec.describe User, type: :model do
       it 'nickname, email, password, password_confirmation, last_name, first_name, last_name_kana, first_name_kana, birthdayの値が存在すれば登録できる' do
         expect(@user).to be_valid
       end
-      it 'passwordとpassword_confirmationが6文字以上であれば登録できる' do
-        @user.password = '000000'
-        @user.password_confirmation = '000000'
-        expect(@user).to be_valid
-      end
     end
 
     context '新規登録できないとき' do
@@ -51,6 +46,36 @@ RSpec.describe User, type: :model do
         @user.password_confirmation = '00000'
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
+      end
+      it 'passwordは英語のみでは登録できないこと' do
+        @user.password = 'aaaaaa'
+        @user.password_confirmation ='aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password 半角英数字でなければ登録できない")
+      end
+      it 'passwordは数字のみでは登録できないこと' do
+        @user.password = '123456'
+        @user.password_confirmation ='123456'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password 半角英数字でなければ登録できない")
+      end
+      it 'passwordは全角では登録できないこと' do
+        @user.password = 'ａａａａａａ'
+        @user.password_confirmation ='ａａａａａａ'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password 半角英数字でなければ登録できない")
+      end
+      it 'first_name,last_nameは漢字・平仮名・カタカナ以外では登録できないこと' do
+        @user.first_name = 'aaaaaa'
+        @user.last_name = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name 漢字・平仮名・カタカナ以外では登録できない","First name 漢字・平仮名・カタカナ以外では登録できない")
+      end
+      it 'first_name_kana,last_name_kanaは全角カタカナ以外では登録できないこと' do
+        @user.first_name_kana = 'aaaaaa'
+        @user.last_name_kana = 'aaaaaa'
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Last name kana 全角カタカナ以外では登録できない", "First name kana 全角カタカナ以外では登録できない")
       end
       it 'passwordとpassword_confirmationが一致しないと登録できない' do
         @user.password_confirmation = ''
