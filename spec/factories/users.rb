@@ -9,5 +9,6 @@ FactoryBot.define do
     last_name_kana        { Gimei.last.katakana }
     first_name_kana       { Gimei.first.katakana }
     birthday              { Faker::Date.backward }
+
   end
 end
