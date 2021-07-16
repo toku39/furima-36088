@@ -34,27 +34,27 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
       it 'categoryは1が選択された場合、保存できない' do
-        @item.category_id = '1'
+        @item.category_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
       it 'conditionは1が選択された場合、保存できない' do
-        @item.condition_id = '1'
+        @item.condition_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
       it 'shipping_chargesは1が選択された場合、保存できない' do
-        @item.shipping_charges_id = '1'
+        @item.shipping_charges_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping charges must be other than 1")
       end
       it 'prefectureは1が選択された場合、保存できない' do
-        @item.prefecture_id = '1'
+        @item.prefecture_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
       it 'shipping_daysは1が選択された場合、保存できない' do
-        @item.shipping_days_id = '1'
+        @item.shipping_days_id = 1
         @item.valid?
         expect(@item.errors.full_messages).to include("Shipping days must be other than 1")
       end
@@ -74,12 +74,12 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
       it 'priceは299円以下では登録できないこと' do
-        @item.price ='299'
+        @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
       it 'priceは10,000,000以上では登録できないこと' do
-        @item.price ='10000000'
+        @item.price = 10000000
         @item.valid?
         expect(@item.errors.full_messages).to include("Price Out of setting range")
       end
