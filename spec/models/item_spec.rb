@@ -33,35 +33,56 @@ RSpec.describe Item, type: :model do
          @item.valid?
         expect(@item.errors.full_messages).to include("Image can't be blank")
       end
-      it 'categoryが空だと保存できない' do
-        @item.category_id = nil
+      it 'categoryは1が選択された場合、保存できない' do
+        @item.category_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Category is not a number")
+        expect(@item.errors.full_messages).to include("Category must be other than 1")
       end
-      it 'conditionが空だと保存できない' do
-        @item.condition_id = nil
+      it 'conditionは1が選択された場合、保存できない' do
+        @item.condition_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Condition is not a number")
+        expect(@item.errors.full_messages).to include("Condition must be other than 1")
       end
-      it 'shipping_chargesが空だと保存できない' do
-        @item.shipping_charges_id = nil
+      it 'shipping_chargesは1が選択された場合、保存できない' do
+        @item.shipping_charges_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping charges is not a number")
+        expect(@item.errors.full_messages).to include("Shipping charges must be other than 1")
       end
-      it 'prefectureが空だと保存できない' do
-        @item.prefecture_id = nil
+      it 'prefectureは1が選択された場合、保存できない' do
+        @item.prefecture_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Prefecture is not a number")
+        expect(@item.errors.full_messages).to include("Prefecture must be other than 1")
       end
-      it 'shipping_daysが空だと保存できない' do
-        @item.shipping_days_id = nil
+      it 'shipping_daysは1が選択された場合、保存できない' do
+        @item.shipping_days_id = '1'
         @item.valid?
-        expect(@item.errors.full_messages).to include("Shipping days is not a number")
+        expect(@item.errors.full_messages).to include("Shipping days must be other than 1")
       end
-
+      it 'priceは全角文字では登録できないこと' do
+        @item.price ='１００'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it 'priceは半角英数混合では登録できないこと' do
+        @item.price ='1a1a'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it 'priceは半角英語だけでは登録できないこと' do
+        @item.price ='aaa'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it 'priceは299円以下では登録できないこと' do
+        @item.price ='299'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
+      it 'priceは10,000,000以上では登録できないこと' do
+        @item.price ='10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price Out of setting range")
+      end
     end
-
   end
-
-
 end

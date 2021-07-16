@@ -7,7 +7,7 @@ FactoryBot.define do
     shipping_charges_id { 2 }
     prefecture_id       { 2 }
     shipping_days_id    { 2 }
-    price            { Faker::Number.number }
+    price            { 300}
   
     association :user
 
