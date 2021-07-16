@@ -13,7 +13,7 @@ class User < ApplicationRecord
     validates :birthday
   end
   validates :password, format: {with: /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i.freeze, message: '半角英数字でなければ登録できない' }
-  # has_many :items
+  has_many :items
   # has_many :purchases
 end
   
