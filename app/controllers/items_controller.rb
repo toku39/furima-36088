@@ -20,10 +20,12 @@ class ItemsController < ApplicationController
   end
 
   def show
+    redirect_to root_path if @item.user == current_user && @item.purchase.present?
   end
 
   def edit
     redirect_to root_path unless @item.user == current_user
+    redirect_to root_path if @item.user == current_user && @item.purchase.present?
   end
 
   def update
@@ -46,7 +48,7 @@ class ItemsController < ApplicationController
 
   def items_params
     params.require(:item).permit(:title, :detail, :price, :user, :image, :category_id, :condition_id, :shipping_charges_id,
-                                 :prefecture_id, :shipping_days_id, :purchase.id).merge(user_id: current_user.id)
+                                 :prefecture_id, :shipping_days_id, :purchase_id).merge(user_id: current_user.id)
   end
 
   def find_item

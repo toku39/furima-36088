@@ -6,7 +6,7 @@ class PurchaseShipAddress
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/ }
     validates :city
     validates :house_number
-    validates :phone_number, format: { with: /\A[0-9]+\z/ }, numericality: { less_than_or_equal_to: 11 }
+    # validates :phone_number, format: { with: /\A[0-9]+\z/ }, numericality: { less_than_or_equal_to: 11 }
     validates :user_id
     validates :item_id
     validates :token
