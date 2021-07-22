@@ -15,7 +15,7 @@ RSpec.describe PurchaseShipAddress, type: :model do
       end
 
       it '建物名が空の状態であっても、保存できること' do
-        @purchase_ship_address.building_name = 'building'
+        @purchase_ship_address.building_name = ''
         expect(@purchase_ship_address).to be_valid
       end
     end
@@ -75,6 +75,17 @@ RSpec.describe PurchaseShipAddress, type: :model do
         @purchase_ship_address.valid?
         expect(@purchase_ship_address.errors.full_messages).to include("Item can't be blank")
       end
+      it 'phone_numberは英数混合では登録できないこと' do
+        @purchase_ship_address.phone_number = '12345abcde'
+        @purchase_ship_address.valid?
+        expect(@purchase_ship_address.errors.full_messages).to include('Phone number is invalid')
+      end
+      it 'postal_codeはハイフン無しでは登録できないこと' do
+        @purchase_ship_address.postal_code = '0898098'
+        @purchase_ship_address.valid?
+        expect(@purchase_ship_address.errors.full_messages).to include("Postal code is invalid")
+      end
+
     end
   end
 end
