@@ -28,9 +28,9 @@ RSpec.describe PurchaseShipAddress, type: :model do
       end
 
       it 'prefecture_idが空だと保存できない' do
-        @purchase_ship_address.prefecture_id = nil
+        @purchase_ship_address.prefecture_id = 1
         @purchase_ship_address.valid?
-        expect(@purchase_ship_address.errors.full_messages).to include('Prefecture is not a number')
+        expect(@purchase_ship_address.errors.full_messages).to include("Prefecture must be other than 1")
       end
 
       it 'cityが空だと保存できない' do
