@@ -13,6 +13,11 @@ RSpec.describe PurchaseShipAddress, type: :model do
       it 'postal_code, prefecture_id, city, house_number, phone_number, user_id, item_id, tokenの値が存在すれば保存できる' do
         expect(@purchase_ship_address).to be_valid
       end
+
+      it '建物名が空の状態であっても、保存できること' do
+        @purchase_ship_address.building_name = 'building'
+        expect(@purchase_ship_address).to be_valid
+      end
     end
 
     context '購入情報保存できないとき' do
